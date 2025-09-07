@@ -1,0 +1,19 @@
+Instructions:
+Run docker-compose up -d --build to start the containers.
+
+You should be able to connect to the MySQL container using MySQL Workbench with the following details:
+https://www.mysql.com/products/workbench/
+
+Host: localhost
+Port: 13306
+User: user
+
+credentials are in the .env file
+
+www index page: http://localhost
+
+PhpMyAdmin http://localhost:8080
+
+login to a docker container:
+docker exec -it lamp_db ./bin/bash
+

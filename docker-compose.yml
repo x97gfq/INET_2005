@@ -1,0 +1,57 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lamp_web
+    volumes:
+      - ./www:/var/www/html
+    ports:
+      - "80:80"
+    environment:
+      APACHE_DOCUMENT_ROOT: /var/www/html
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    platform: linux/amd64
+    container_name: lamp_db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "13306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      # Any .sql or .sh files here run ONCE on first init
+      - ./db_scripts:/docker-entrypoint-initdb.d
+      - ./mysql-conf/my.cnf:/etc/mysql/conf.d/my.cnf
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  phpmyadmin:
+    image: phpmyadmin:5-apache
+    platform: linux/amd64
+    container_name: lamp_phpmyadmin
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      # Optional: set to 1 to allow choosing server in UI
+      PMA_ARBITRARY: 0
+      # Optional: prefill login fields (you’ll still type the password)
+      PMA_USER: ${MYSQL_ROOT_USER}
+      PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "8080:80"
+
+volumes:
+  db_data:
