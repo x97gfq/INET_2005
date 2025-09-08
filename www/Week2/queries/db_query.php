@@ -2,8 +2,8 @@
 // Database connection settings
 $host = 'lamp_db';
 $dbname = 'school_db';
-$username = '';
-$password = ''; 
+$username = 'user';
+$password = 'userpassword'; 
 $port = 13306;
 
 // Create connection
