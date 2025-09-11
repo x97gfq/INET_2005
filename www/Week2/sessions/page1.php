@@ -19,7 +19,7 @@ session_start();
         <h2>Please login</h2>
 
         <form action="page2.php" method="post">
-            <P>Username:</p>
+            <P>Email:</p>
             <input type="text" name="username">
 
             <p>Password:</p>

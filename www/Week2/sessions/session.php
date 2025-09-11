@@ -1,9 +1,13 @@
 <br/><br/>
-<p>Session variables:</p>
+<p><b>Session variables:</b></p>
 <?php
+$sessionId = session_id();
+echo "<P><b>session_id: " . $sessionId . "</P>";
 if (isset($_SESSION)) {
+    echo "<ul>";
     foreach($_SESSION as $key => $value) {
-        echo "<P>" . $key . ": " . $value . "</P>";
+        echo "<li>" . $key . ": " . $value . "</li>";
     }
+    echo "</ul>";
 }
 ?>

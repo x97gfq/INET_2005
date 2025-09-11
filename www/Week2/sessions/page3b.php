@@ -17,10 +17,10 @@ session_start();
         <?php
         if (isset($_SESSION)) {
             $logged_in = $_SESSION["logged_in"];
-            $username = $_SESSION["username"];
+            $email = $_SESSION["email"];
 
             if ($logged_in) {
-                echo "<p>HellThis is another page.  The user " . $username . " is logged in (I used a Cookie).</p>";
+                echo "<p>Hello. This is another page.  The user " . $email . " is logged in (I used a Cookie to retrieve your PHP session information).</p>";
             }
         }
         ?>

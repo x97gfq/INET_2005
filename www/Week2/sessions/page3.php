@@ -22,10 +22,10 @@ if (!$_SESSION["logged_in"]) {
         <?php
         if (isset($_SESSION)) {
             $logged_in = $_SESSION["logged_in"];
-            $username = $_SESSION["username"];
+            $name = $_SESSION["firstname"] . " " . $_SESSION["lastname"];
 
             if ($logged_in) {
-                echo "<p>Hello " . $username . "</p>";
+                echo "<p>Hello " . $name . "</p>";
             }
         }
         ?>

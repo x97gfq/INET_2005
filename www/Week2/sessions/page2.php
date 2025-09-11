@@ -20,8 +20,8 @@ session_start();
         //$hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         $db_servername = "db";
-        $db_username = "root";
-        $db_password = "rootpassword";
+        $db_username = "peopleuser";
+        $db_password = "peoplepassword";
         $db_name = "People";
 
         // Create connection
@@ -54,10 +54,10 @@ session_start();
                 $_SESSION["firstname"] = $row["firstname"];
                 $_SESSION["email"] = $row["email"];
             }
-            echo "valid login";
+            echo "<h1>valid login</h1>";
             echo "<br/><a href=\"page3.php\">go to page 3</a>";
         } else {
-            echo "invalid login";
+            echo "<h1>invalid login</h1>";
             echo "<br/><a href=\"page1.php\">go back to login</a>";
         }
 
