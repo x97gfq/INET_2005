@@ -6,7 +6,7 @@ $host = 'lamp_db';
 $dbname = 'school_db';
 $username = 'user';
 $password = 'userpassword'; 
-$port = 13306;
+$port = 3306;
 
 // Create connection
 $conn = new mysqli($host, $username, $password, $dbname, $por);
