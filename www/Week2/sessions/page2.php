@@ -19,13 +19,13 @@ session_start();
 
         //$hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        $db_servername = "db";
+        $db_servername = "lamp_db";
         $db_username = "peopleuser";
         $db_password = "peoplepassword";
         $db_name = "People";
 
         // Create connection
-        $conn = new mysqli($db_servername, $db_username, $db_password, $d_bname);
+        $conn = new mysqli($db_servername, $db_username, $db_password, $db_name);
 
         // Check connection
         if ($conn->connect_error) {

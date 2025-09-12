@@ -20,7 +20,12 @@ $sql = "SELECT first_name, last_name, email, city, program, gpa
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
+
+
     echo 'we got data back!';
+
+
+
 } else {
     echo 'we have no data';
 }

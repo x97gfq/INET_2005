@@ -1,0 +1,32 @@
+<form action="process_form2.php" method="POST" enctype="multipart/form-data">
+  <label>Name: <input type="text" name="name" required></label><br>
+
+  <label>Bio:<br>
+    <textarea name="bio" rows="4" cols="40"></textarea>
+  </label><br>
+
+  <label>Gender:</label>
+  <label><input type="radio" name="gender" value="Male"> Male</label>
+  <label><input type="radio" name="gender" value="Female"> Female</label>
+  <label><input type="radio" name="gender" value="Trans"> Transgender</label>
+  <label><input type="radio" name="gender" value="Non-Binary"> Non-Binary</label>
+  <label><input type="radio" name="gender" value="Other"> Other</label>
+  <br>
+
+  <label>Interests:</label>
+  <label><input type="checkbox" name="interests[]" value="Coding"> Coding</label>
+  <label><input type="checkbox" name="interests[]" value="Music"> Music</label>
+  <label><input type="checkbox" name="interests[]" value="Sports"> Sports</label><br>
+
+  <label>Country:
+    <select name="country">
+      <option value="Canada">Canada</option>
+      <option value="USA">USA</option>
+      <option value="UK">UK</option>
+    </select>
+  </label><br>
+
+  <label>Upload a file: <input type="file" name="uploaded_file"></label><br>
+
+  <input type="submit" value="Submit">
+</form>
