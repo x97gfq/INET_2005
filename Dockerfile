@@ -1,4 +1,5 @@
-FROM php:7.4-apache
+#FROM php:7.4-apache
+FROM php:8.1-apache
 
 # Enable Apache modules commonly needed for frameworks/pretty URLs
 RUN a2enmod rewrite headers

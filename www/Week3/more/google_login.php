@@ -1,6 +1,9 @@
 <?php
+
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
 session_start();
 require_once 'vendor/autoload.php';
+
 
 $client = new Google_Client();
 $client->setClientId('YOUR_CLIENT_ID');
@@ -19,5 +22,6 @@ if (!isset($_GET['code'])) {
     $user_info = $oauth->userinfo->get();
     $_SESSION['user'] = $user_info;
     echo "Welcome, " . $user_info->name;
+    print_r($user_info);
 }
 ?>
