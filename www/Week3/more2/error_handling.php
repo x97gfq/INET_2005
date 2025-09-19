@@ -13,5 +13,7 @@ try {
 } catch (CustomException $e) {
     error_log("Error: " . $e->getMessage());
     echo "An error occurred. Please try again later.";
+
+    echo "<p>find the error message here: " . ini_get('error_log') . "</p>";
 }
 ?>
