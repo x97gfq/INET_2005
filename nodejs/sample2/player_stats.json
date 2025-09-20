@@ -1,0 +1,268 @@
+{
+    "players": [
+      {
+        "name": "John Doe",
+        "team": "Eagles",
+        "position": "Quarterback",
+        "games_played": 16,
+        "passing_yards": 4500,
+        "touchdowns": 35,
+        "interceptions": 10,
+        "rushing_yards": 300
+      },
+      {
+        "name": "Mike Smith",
+        "team": "Tigers",
+        "position": "Running Back",
+        "games_played": 16,
+        "rushing_yards": 1200,
+        "rushing_touchdowns": 10,
+        "receptions": 50,
+        "receiving_yards": 400,
+        "receiving_touchdowns": 3
+      },
+      {
+        "name": "Tom Brown",
+        "team": "Bears",
+        "position": "Wide Receiver",
+        "games_played": 16,
+        "receptions": 80,
+        "receiving_yards": 1100,
+        "receiving_touchdowns": 8
+      },
+      {
+        "name": "Jake Johnson",
+        "team": "Lions",
+        "position": "Tight End",
+        "games_played": 16,
+        "receptions": 60,
+        "receiving_yards": 700,
+        "receiving_touchdowns": 5
+      },
+      {
+        "name": "Chris Evans",
+        "team": "Eagles",
+        "position": "Quarterback",
+        "games_played": 16,
+        "passing_yards": 4200,
+        "touchdowns": 30,
+        "interceptions": 12,
+        "rushing_yards": 250
+      },
+      {
+        "name": "David Lee",
+        "team": "Tigers",
+        "position": "Running Back",
+        "games_played": 16,
+        "rushing_yards": 1300,
+        "rushing_touchdowns": 12,
+        "receptions": 45,
+        "receiving_yards": 350,
+        "receiving_touchdowns": 4
+      },
+      {
+        "name": "Steve Harris",
+        "team": "Bears",
+        "position": "Wide Receiver",
+        "games_played": 16,
+        "receptions": 75,
+        "receiving_yards": 1050,
+        "receiving_touchdowns": 7
+      },
+      {
+        "name": "Paul Walker",
+        "team": "Lions",
+        "position": "Tight End",
+        "games_played": 16,
+        "receptions": 65,
+        "receiving_yards": 750,
+        "receiving_touchdowns": 6
+      },
+      {
+        "name": "Mark Davis",
+        "team": "Eagles",
+        "position": "Quarterback",
+        "games_played": 16,
+        "passing_yards": 4000,
+        "touchdowns": 28,
+        "interceptions": 14,
+        "rushing_yards": 200
+      },
+      {
+        "name": "James Wilson",
+        "team": "Tigers",
+        "position": "Running Back",
+        "games_played": 16,
+        "rushing_yards": 1400,
+        "rushing_touchdowns": 14,
+        "receptions": 40,
+        "receiving_yards": 300,
+        "receiving_touchdowns": 5
+      },
+      {
+        "name": "Robert Miller",
+        "team": "Bears",
+        "position": "Wide Receiver",
+        "games_played": 16,
+        "receptions": 70,
+        "receiving_yards": 1000,
+        "receiving_touchdowns": 6
+      },
+      {
+        "name": "Kevin Moore",
+        "team": "Lions",
+        "position": "Tight End",
+        "games_played": 16,
+        "receptions": 70,
+        "receiving_yards": 800,
+        "receiving_touchdowns": 7
+      },
+      {
+        "name": "Brian Taylor",
+        "team": "Eagles",
+        "position": "Quarterback",
+        "games_played": 16,
+        "passing_yards": 3800,
+        "touchdowns": 25,
+        "interceptions": 16,
+        "rushing_yards": 150
+      },
+      {
+        "name": "Daniel Anderson",
+        "team": "Tigers",
+        "position": "Running Back",
+        "games_played": 16,
+        "rushing_yards": 1500,
+        "rushing_touchdowns": 15,
+        "receptions": 35,
+        "receiving_yards": 250,
+        "receiving_touchdowns": 6
+      },
+      {
+        "name": "Matthew Thomas",
+        "team": "Bears",
+        "position": "Wide Receiver",
+        "games_played": 16,
+        "receptions": 65,
+        "receiving_yards": 950,
+        "receiving_touchdowns": 5
+      },
+      {
+        "name": "Anthony Jackson",
+        "team": "Lions",
+        "position": "Tight End",
+        "games_played": 16,
+        "receptions": 75,
+        "receiving_yards": 850,
+        "receiving_touchdowns": 8
+      },
+      {
+        "name": "Charles White",
+        "team": "Eagles",
+        "position": "Quarterback",
+        "games_played": 16,
+        "passing_yards": 3600,
+        "touchdowns": 22,
+        "interceptions": 18,
+        "rushing_yards": 100
+      },
+      {
+        "name": "Joseph Martin",
+        "team": "Tigers",
+        "position": "Running Back",
+        "games_played": 16,
+        "rushing_yards": 1600,
+        "rushing_touchdowns": 16,
+        "receptions": 30,
+        "receiving_yards": 200,
+        "receiving_touchdowns": 7
+      },
+      {
+        "name": "Christopher Thompson",
+        "team": "Bears",
+        "position": "Wide Receiver",
+        "games_played": 16,
+        "receptions": 60,
+        "receiving_yards": 900,
+        "receiving_touchdowns": 4
+      },
+      {
+        "name": "George Martinez",
+        "team": "Lions",
+        "position": "Tight End",
+        "games_played": 16,
+        "receptions": 80,
+        "receiving_yards": 900,
+        "receiving_touchdowns": 9
+      },
+      {
+        "name": "Thomas Garcia",
+        "team": "Eagles",
+        "position": "Quarterback",
+        "games_played": 16,
+        "passing_yards": 3400,
+        "touchdowns": 20,
+        "interceptions": 20,
+        "rushing_yards": 50
+      },
+      {
+        "name": "Donald Robinson",
+        "team": "Tigers",
+        "position": "Running Back",
+        "games_played": 16,
+        "rushing_yards": 1700,
+        "rushing_touchdowns": 18,
+        "receptions": 25,
+        "receiving_yards": 150,
+        "receiving_touchdowns": 8
+      },
+      {
+        "name": "Kenneth Clark",
+        "team": "Bears",
+        "position": "Wide Receiver",
+        "games_played": 16,
+        "receptions": 55,
+        "receiving_yards": 850,
+        "receiving_touchdowns": 3
+      },
+      {
+        "name": "Steven Rodriguez",
+        "team": "Lions",
+        "position": "Tight End",
+        "games_played": 16,
+        "receptions": 85,
+        "receiving_yards": 950,
+        "receiving_touchdowns": 10
+      },
+      {
+        "name": "Edward Lewis",
+        "team": "Eagles",
+        "position": "Quarterback",
+        "games_played": 16,
+        "passing_yards": 3200,
+        "touchdowns": 18,
+        "interceptions": 22,
+        "rushing_yards": 0
+      },
+      {
+        "name": "Jason Lee",
+        "team": "Tigers",
+        "position": "Running Back",
+        "games_played": 16,
+        "rushing_yards": 1800,
+        "rushing_touchdowns": 20,
+        "receptions": 20,
+        "receiving_yards": 100,
+        "receiving_touchdowns": 9
+      },
+      {
+        "name": "Larry Walker",
+        "team": "Bears",
+        "position": "Wide Receiver",
+        "games_played": 16,
+        "receptions": 50,
+        "receiving_yards": 800,
+        "receiving_touchdowns": 2
+      }
+    ]
+}

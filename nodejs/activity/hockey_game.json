@@ -1,0 +1,50 @@
+{
+    "game": {
+        "date": "2024-10-05",
+        "teams": {
+            "home": "Toronto Maple Leafs",
+            "away": "Montreal Canadiens"
+        },
+        "score": {
+            "home": 3,
+            "away": 2
+        },
+        "events": [
+            {
+                "period": 1,
+                "time": "05:23",
+                "team": "Toronto Maple Leafs",
+                "player": "Auston Matthews",
+                "event": "goal"
+            },
+            {
+                "period": 1,
+                "time": "12:45",
+                "team": "Montreal Canadiens",
+                "player": "Nick Suzuki",
+                "event": "goal"
+            },
+            {
+                "period": 2,
+                "time": "08:30",
+                "team": "Toronto Maple Leafs",
+                "player": "Mitch Marner",
+                "event": "goal"
+            },
+            {
+                "period": 3,
+                "time": "03:15",
+                "team": "Montreal Canadiens",
+                "player": "Cole Caufield",
+                "event": "goal"
+            },
+            {
+                "period": 3,
+                "time": "17:50",
+                "team": "Toronto Maple Leafs",
+                "player": "John Tavares",
+                "event": "goal"
+            }
+        ]
+    }
+}

@@ -17,6 +17,8 @@ RUN { \
   echo "date.timezone=UTC"; \
 } > /usr/local/etc/php/conf.d/custom.ini
 
+RUN echo "log_errors = On\nerror_log = /var/log/php_errors.log" >> /usr/local/etc/php/php.ini
+
 # Honor APACHE_DOCUMENT_ROOT if passed in docker-compose
 ARG APACHE_DOCUMENT_ROOT=/var/www/html
 RUN sed -ri -e "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-available/000-default.conf /etc/apache2/apache2.conf

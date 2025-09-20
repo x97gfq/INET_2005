@@ -26,7 +26,6 @@ services:
       - "13306:3306"
     volumes:
       - db_data:/var/lib/mysql
-      # Any .sql or .sh files here run ONCE on first init
       - ./db_scripts:/docker-entrypoint-initdb.d
       - ./mysql-conf/my.cnf:/etc/mysql/conf.d/my.cnf
     command: --default-authentication-plugin=mysql_native_password
@@ -45,13 +44,31 @@ services:
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
-      # Optional: set to 1 to allow choosing server in UI
       PMA_ARBITRARY: 0
-      # Optional: prefill login fields (you’ll still type the password)
       PMA_USER: ${MYSQL_ROOT_USER}
       PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - "8080:80"
 
+  nodejs:
+    build:
+      context: ./nodejs
+      dockerfile: Dockerfile
+    container_name: nodejs_app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./nodejs:/usr/src/app
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongo_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
 volumes:
   db_data:
+  mongo_data:
