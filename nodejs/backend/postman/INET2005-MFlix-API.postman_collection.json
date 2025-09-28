@@ -1,0 +1,176 @@
+{
+  "info": {
+    "name": "INET2005 \u2013 MFlix Movies API",
+    "_postman_id": "e3f1f1bb-6b1e-4c48-9f4c-4b65a1f1d111",
+    "description": "Postman collection for the INET 2005 MFlix API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "health"
+          ]
+        }
+      }
+    },
+    {
+      "name": "List Movies (default)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/movies",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "movies"
+          ]
+        }
+      }
+    },
+    {
+      "name": "List Movies (title=matrix, limit=5)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/movies?title=matrix&limit=5",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "movies"
+          ],
+          "query": [
+            {
+              "key": "title",
+              "value": "matrix"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Movie by ID (replace :id)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/movies/:id",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "movies",
+            ":id"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Search by Title (q=matrix)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/movies/search?q=matrix",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "movies",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "q",
+              "value": "matrix"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Search by Actor (keanu)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/movies/actor/keanu",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "movies",
+            "actor",
+            "keanu"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Filter by Year (1999)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/movies/year/1999",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "movies",
+            "year",
+            "1999"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Filter by Genre (sci)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/movies/genre/sci",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "movies",
+            "genre",
+            "sci"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3001"
+    }
+  ]
+}
