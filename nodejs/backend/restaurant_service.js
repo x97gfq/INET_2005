@@ -208,6 +208,46 @@ app.delete('/api/restaurants/:id', async (req, res) => {
   }
 });
 
+/**
+ * Fetch a paginated list of restaurants.
+ * Example: GET /api/restaurants?page=2&limit=5
+ * GET /api/restaurants?page=1&limit=10 → First 10 restaurants
+ * GET /api/restaurants?page=2&limit=5 → Second page with 5 restaurants per page
+ */
+app.get('/api/restaurants', async (req, res) => {
+  try {
+    // Parse query parameters with defaults
+    const page = parseInt(req.query.page) || 1;       // Default to page 1
+    const limit = parseInt(req.query.limit) || 10;    // Default to 10 items per page
+    const skip = (page - 1) * limit;                  // Calculate how many documents to skip
+
+    // Get total number of documents
+    const totalCount = await restaurantsCollection.countDocuments();
+
+    // Fetch paginated documents
+    const items = await restaurantsCollection.find({})
+      .skip(skip)
+      .limit(limit)
+      .toArray();
+
+    // Calculate total pages
+    const totalPages = Math.ceil(totalCount / limit);
+
+    // Return paginated results with metadata
+    res.json({
+      page,
+      limit,
+      totalPages,
+      totalCount,
+      count: items.length,
+      items
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to fetch restaurants', details: String(err) });
+  }
+});
+
 // --- Graceful shutdown handler ---
 // Ensures MongoDB connection is closed when the server is stopped
 process.on('SIGINT', async () => {
