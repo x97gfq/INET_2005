@@ -9,6 +9,8 @@ const express = require('express'); // Web framework for Node.js
 const { MongoClient, ObjectId } = require('mongodb'); // MongoDB client and ObjectId helper
 const cors = require('cors'); // Enables Cross-Origin Resource Sharing
 const morgan = require('morgan'); // HTTP request logger middleware
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 require('dotenv').config(); // Loads environment variables from .env file
 
 // --- Initialize Express app ---
@@ -59,6 +61,23 @@ app.use(async (req, res, next) => {
     });
   }
 });
+
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Restaurant API',
+      version: '1.0.1',
+      description: 'API for managing restaurant data',
+    },
+  },
+  apis: ['./restaurant_service.js'], // or wherever your route files are
+};
+
+const specs = swaggerJsdoc(options);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
+
 
 // --- Routes ---
 
@@ -141,6 +160,8 @@ app.post('/api/restaurants', async (request, response) => {
     const result = await restaurantsCollection.insertOne(newRestaurant);
     const newId = result.insertedId;
 
+    //console.log('result', result);
+
     response.status(201).json({ insertedId: newId });
   } catch(err) {
     console.error(err);
@@ -173,6 +194,8 @@ app.put('/api/restaurants/:id', async (req, res) => {
       return res.status(404).json({ error: 'Restaurant not found' });
     }
 
+    //console.log('result', result);
+
     res.json({ updatedCount: result.modifiedCount });
   } catch(err) {
     console.error(err);
@@ -200,6 +223,8 @@ app.delete('/api/restaurants/:id', async (req, res) => {
       return res.status(404).json({ error: "Restaurant not found" });
     }
 
+    //console.log('result', result);
+
     let delcount = result.deletedCount;
     res.json({ deletedCount: delcount });
   } catch(err) {
@@ -209,10 +234,13 @@ app.delete('/api/restaurants/:id', async (req, res) => {
 });
 
 /**
- * Fetch a paginated list of restaurants.
- * Example: GET /api/restaurants?page=2&limit=5
- * GET /api/restaurants?page=1&limit=10 → First 10 restaurants
- * GET /api/restaurants?page=2&limit=5 → Second page with 5 restaurants per page
+ * @swagger
+ * /api/restaurants:
+ *   get:
+ *     summary: Get all restaurants
+ *     responses:
+ *       200:
+ *         description: A list of restaurants
  */
 app.get('/api/restaurants', async (req, res) => {
   try {
