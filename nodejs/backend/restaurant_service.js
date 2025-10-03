@@ -86,6 +86,16 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
  * Useful for verifying that the server is running.
  * Accessible via GET /api/health or GET /
  */
+/**
+ * @swagger
+ * /api/health:
+ *   get:
+ *     summary: Health check endpoint
+ *     description: Returns server status and current time
+ *     responses:
+ *       200:
+ *         description: Server is running
+ */
 app.get(['/api/health', '/'], (req, res) => {
   res.json({
     status: 'ok',
@@ -96,6 +106,26 @@ app.get(['/api/health', '/'], (req, res) => {
 /**
  * Fetch a restaurant document by its MongoDB ObjectId.
  * Example: GET /api/restaurants/64f1c2e8a1b2c3d4e5f6a7b8
+ */
+/**
+ * @swagger
+ * /api/restaurants/{id}:
+ *   get:
+ *     summary: Get a restaurant by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: MongoDB ObjectId of the restaurant
+ *     responses:
+ *       200:
+ *         description: Restaurant found
+ *       400:
+ *         description: Invalid ObjectId
+ *       404:
+ *         description: Restaurant not found
  */
 app.get('/api/restaurants/:id', async (req, res) => {
   try {
@@ -127,6 +157,22 @@ app.get('/api/restaurants/:id', async (req, res) => {
  * Search restaurants by borough (case-insensitive).
  * Example: GET /api/restaurants/borough/Manhattan
  */
+/**
+ * @swagger
+ * /api/restaurants/borough/{borough}:
+ *   get:
+ *     summary: Search restaurants by borough
+ *     parameters:
+ *       - in: path
+ *         name: borough
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Borough name (case-insensitive)
+ *     responses:
+ *       200:
+ *         description: List of matching restaurants
+ */
 app.get('/api/restaurants/borough/:borough', async (req, res) => {
   try {
     const { q } = req.params;
@@ -152,6 +198,27 @@ app.get('/api/restaurants/borough/:borough', async (req, res) => {
  * Example: POST /api/restaurants
  * Body: JSON object with restaurant details
  */
+/**
+ * @swagger
+ * /api/restaurants:
+ *   post:
+ *     summary: Create a new restaurant
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             example:
+ *               name: "Pizza Place"
+ *               borough: "Brooklyn"
+ *               cuisine: "Italian"
+ *     responses:
+ *       201:
+ *         description: Restaurant created
+ *       400:
+ *         description: Failed to create restaurant
+ */
 app.post('/api/restaurants', async (request, response) => {
   try {
     const newRestaurant = request.body;
@@ -173,6 +240,34 @@ app.post('/api/restaurants', async (request, response) => {
  * Update an existing restaurant document by ID.
  * Example: PUT /api/restaurants/:id
  * Body: JSON object with fields to update
+ */
+/**
+ * @swagger
+ * /api/restaurants/{id}:
+ *   put:
+ *     summary: Update a restaurant by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: MongoDB ObjectId of the restaurant
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             example:
+ *               name: "Updated Name"
+ *     responses:
+ *       200:
+ *         description: Restaurant updated
+ *       400:
+ *         description: Invalid ObjectId
+ *       404:
+ *         description: Restaurant not found
  */
 app.put('/api/restaurants/:id', async (req, res) => {
   try {
@@ -206,6 +301,26 @@ app.put('/api/restaurants/:id', async (req, res) => {
 /**
  * Delete a restaurant document by ID.
  * Example: DELETE /api/restaurants/:id
+ */
+/**
+ * @swagger
+ * /api/restaurants/{id}:
+ *   delete:
+ *     summary: Delete a restaurant by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: MongoDB ObjectId of the restaurant
+ *     responses:
+ *       200:
+ *         description: Restaurant deleted
+ *       400:
+ *         description: Invalid ObjectId
+ *       404:
+ *         description: Restaurant not found
  */
 app.delete('/api/restaurants/:id', async (req, res) => {
   try {
@@ -241,6 +356,26 @@ app.delete('/api/restaurants/:id', async (req, res) => {
  *     responses:
  *       200:
  *         description: A list of restaurants
+ */
+/**
+ * @swagger
+ * /api/restaurants:
+ *   get:
+ *     summary: Get paginated list of restaurants
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: Page number
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Number of items per page
+ *     responses:
+ *       200:
+ *         description: Paginated list of restaurants
  */
 app.get('/api/restaurants', async (req, res) => {
   try {
