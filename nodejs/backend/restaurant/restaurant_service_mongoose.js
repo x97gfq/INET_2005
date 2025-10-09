@@ -40,9 +40,40 @@ const options = {
 const specs = swaggerJsdoc(options);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
+
+/**
+ * @swagger
+ * /api/health:
+ *   get:
+ *     summary: Health check endpoint
+ *     responses:
+ *       200:
+ *         description: Returns API status and current time
+ */
+
 app.get(['/api/health', '/'], (req, res) => {
   res.json({ status: 'ok', time: new Date().toISOString() });
 });
+
+
+/**
+ * @swagger
+ * /api/restaurants/{id}:
+ *   get:
+ *     summary: Get a restaurant by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Restaurant ID
+ *     responses:
+ *       200:
+ *         description: Restaurant data
+ *       404:
+ *         description: Restaurant not found
+ */
 
 app.get('/api/restaurants/:id', async (req, res) => {
   try {
@@ -55,6 +86,24 @@ app.get('/api/restaurants/:id', async (req, res) => {
   }
 });
 
+
+/**
+ * @swagger
+ * /api/restaurants/borough/{borough}:
+ *   get:
+ *     summary: Get restaurants by borough
+ *     parameters:
+ *       - in: path
+ *         name: borough
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Borough name
+ *     responses:
+ *       200:
+ *         description: List of restaurants in the borough
+ */
+
 app.get('/api/restaurants/borough/:borough', async (req, res) => {
   try {
     const borough = req.params.borough;
@@ -64,6 +113,39 @@ app.get('/api/restaurants/borough/:borough', async (req, res) => {
     res.status(500).json({ error: 'Search failed', details: err.message });
   }
 });
+
+
+/**
+ * @swagger
+ * /api/restaurants:
+ *   post:
+ *     summary: Create a new restaurant
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       201:
+ *         description: Restaurant created
+ *   get:
+ *     summary: Get paginated list of restaurants
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: Page number
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Number of items per page
+ *     responses:
+ *       200:
+ *         description: Paginated list of restaurants
+ */
 
 app.post('/api/restaurants', async (req, res) => {
   try {
@@ -75,6 +157,32 @@ app.post('/api/restaurants', async (req, res) => {
   }
 });
 
+
+/**
+ * @swagger
+ * /api/restaurants/{id}:
+ *   put:
+ *     summary: Update a restaurant by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Restaurant ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *         description: Restaurant updated
+ *       404:
+ *         description: Restaurant not found
+ */
+
 app.put('/api/restaurants/:id', async (req, res) => {
   try {
     const updated = await Restaurant.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -85,6 +193,26 @@ app.put('/api/restaurants/:id', async (req, res) => {
   }
 });
 
+
+/**
+ * @swagger
+ * /api/restaurants/{id}:
+ *   delete:
+ *     summary: Delete a restaurant by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Restaurant ID
+ *     responses:
+ *       200:
+ *         description: Restaurant deleted
+ *       404:
+ *         description: Restaurant not found
+ */
+
 app.delete('/api/restaurants/:id', async (req, res) => {
   try {
     const deleted = await Restaurant.findByIdAndDelete(req.params.id);
@@ -94,6 +222,7 @@ app.delete('/api/restaurants/:id', async (req, res) => {
     res.status(400).json({ error: 'Delete failed', details: err.message });
   }
 });
+
 
 app.get('/api/restaurants', async (req, res) => {
   try {
