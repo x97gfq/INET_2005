@@ -1,0 +1,10 @@
+| Original (MongoClient)        | Refactored (Mongoose)             |
+|------------------------       |------------------------           |
+| MongoClient, ObjectId         | mongoose, Restaurant model        |
+| Manual connection setup       | mongoose.connect(...)             |
+| Manual ObjectId validation    | Mongoose handles it               |
+| findOne({ _id: new ObjectId(id) }) | findById(id)                 |
+| insertOne(newRestaurant)      | new Restaurant(req.body).save()   |
+| updateOne({ _id }, { $set })  | findByIdAndUpdate(id, req.body)   |
+| deleteOne({ _id })            | findByIdAndDelete(id)             |
+| Manual pagination             | Restaurant.find().skip().limit()  |

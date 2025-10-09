@@ -11,7 +11,9 @@ const cors = require('cors'); // Enables Cross-Origin Resource Sharing
 const morgan = require('morgan'); // HTTP request logger middleware
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-require('dotenv').config(); // Loads environment variables from .env file
+
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env')}); // Loads environment variables from .env file
 
 // --- Initialize Express app ---
 const app = express();
@@ -138,7 +140,7 @@ app.get('/api/restaurants/:id', async (req, res) => {
 
     // Query the database for the restaurant with the given _id
     const doc = await restaurantsCollection.findOne({ _id: new ObjectId(id) });
-
+console.log("doc", doc);
     if (!doc) {
       return res.status(404).json({ error: 'Restaurant not found' });
     }

@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 // Hard-coded valid token (in real apps, use JWT verification)
 const VALID_TOKEN = 'myHardcodedBearerToken123';
@@ -15,7 +15,7 @@ function checkBearerToken(req, res, next) {
   if (token !== VALID_TOKEN) {
     return res.status(403).json({ error: 'Invalid token' });
   }
-
+  //console.log("token is valid");
   next(); // Token is valid
 }
 

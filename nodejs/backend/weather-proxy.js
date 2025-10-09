@@ -18,6 +18,9 @@ app.get('/weather', async (req, res) => {
 
   try {
     const response = await axios.get(weatherUrl);
+
+    //console.log(weatherUrl, response);
+
     const weather = response.data.current_weather;
 
     res.json({
@@ -27,6 +30,7 @@ app.get('/weather', async (req, res) => {
       weatherCode: weather.weathercode,
       time: weather.time
     });
+    
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch weather data', details: error.message });
   }
