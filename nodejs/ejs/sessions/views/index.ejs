@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Session Demo</title>
+</head>
+<body>
+  <% if (username) { %>
+    <h1>Welcome, <%= username %>!</h1>
+    <a href="/logout">Logout</a>
+  <% } else { %>
+    <form action="/login" method="POST">
+      <input type="text" name="username" placeholder="Enter username" required />
+      <button type="submit">Login</button>
+    </form>
+  <% } %>
+</body>
+</html>
