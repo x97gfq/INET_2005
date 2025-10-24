@@ -6,4 +6,8 @@ nodejs/backend/node_modules/
 nodejs/ejs/demo1/node_modules/
 nodejs/ejs/demo2/node_modules/
 nodejs/ejs/site_example/node_modules/
-
+nodejs/ejs/chatgpt/node_modules/
+nodejs/ejs/demo_completions_api/node_modules/
+nodejs/ejs/sessions/node_modules/
+nodejs/ejs/chatbot/node_modules/
+nodejs/ejs/chatgpt/
