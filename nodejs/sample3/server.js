@@ -89,7 +89,7 @@ app.get(['/api/health', '/'], (req, res) => {
  *         description: Restaurant not found
  */
 
-app.get('/api/restaurants/:id', jwtMiddleware, async (req, res) => {
+app.get('/api/restaurants/:id', async (req, res) => {
   try {
     const id = req.params.id;
 
