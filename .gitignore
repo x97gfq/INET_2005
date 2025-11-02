@@ -13,3 +13,6 @@ nodejs/ejs/chatbot/node_modules/
 nodejs/ejs/chatgpt/
 nodejs/sample3/models/node_modules/
 nodejs/sample3/node_modules/
+nodejs/sample3/access.log
+nodejs/sample3/errors.log
+nodejs/sample3/jwt.txt

@@ -3,8 +3,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const fs = require('fs');
+const morgan = require('morgan');
+const winston = require('winston');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const jwtMiddleware = require('./jwtMiddleware');
 
 const path = require('path');
 require('dotenv').config(); // Loads environment variables from .env file
@@ -17,6 +20,13 @@ const MONGODB_URI = `${process.env.MONGODB_URI}/${process.env.DB_NAME}`;
 
 app.use(cors());
 app.use(express.json());
+
+// create a write stream (in append mode)
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+
+// https://www.npmjs.com/package/morgan
+app.use(morgan('combined', { stream: accessLogStream }));
+
 
 // connect to the database and start listening for http requests.
 mongoose.connect(MONGODB_URI, {
@@ -55,6 +65,20 @@ const specs = swaggerJsdoc(options);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 
+// winston logger (error log)
+const logger = winston.createLogger({
+  level: 'error',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json()
+  ),
+  transports: [
+    new winston.transports.File({ filename: 'errors.log' }),
+    new winston.transports.Console()
+  ]
+});
+
+
 /**
  * @swagger
  * /api/health:
@@ -65,7 +89,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
  *         description: Returns API status and current time
  */
 
-app.get(['/api/health', '/'], (req, res) => {
+app.get(['/api/health', '/'], jwtMiddleware, (req, res) => {
   res.json({ status: 'ok', time: new Date().toISOString() });
 });
 
@@ -89,18 +113,18 @@ app.get(['/api/health', '/'], (req, res) => {
  *         description: Restaurant not found
  */
 
-app.get('/api/restaurants/:id', async (req, res) => {
+app.get('/api/restaurants/:id', jwtMiddleware, async (req, res) => {
   try {
     const id = req.params.id;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ error: 'Invalid ID format' });
     }
-    //throw new Error('Something went wrong!');
     const doc = await Restaurant.findById(id);
     if (!doc) return res.status(404).json({ error: 'Restaurant not found' });
     res.json(doc);
   } catch (err) {
+    logger.error('Error in Get By Id', { message: err.message, stack: err.stack });
     res.status(400).json({ error: 'Invalid ID', details: err.message });
   }
 });
@@ -123,12 +147,13 @@ app.get('/api/restaurants/:id', async (req, res) => {
  *         description: List of restaurants in the borough
  */
 
-app.get('/api/restaurants/borough/:borough', async (req, res) => {
+app.get('/api/restaurants/borough/:borough', jwtMiddleware, async (req, res) => {
   try {
     const borough = req.params.borough;
     const items = await Restaurant.find({ borough: new RegExp(borough, 'i') }).limit(50);
     res.json({ count: items.length, items });
   } catch (err) {
+    logger.error('Error in Get By Borough', { message: err.message, stack: err.stack });
     res.status(500).json({ error: 'Search failed', details: err.message });
   }
 });
@@ -166,12 +191,13 @@ app.get('/api/restaurants/borough/:borough', async (req, res) => {
  *         description: Paginated list of restaurants
  */
 
-app.post('/api/restaurants', async (req, res) => {
+app.post('/api/restaurants', jwtMiddleware, async (req, res) => {
   try {
     const newRestaurant = new Restaurant(req.body);
     const saved = await newRestaurant.save();
     res.status(201).json({ insertedId: saved._id });
   } catch (err) {
+    logger.error('Error in POST', { message: err.message, stack: err.stack });
     res.status(400).json({ error: 'Failed to create restaurant', details: err.message });
   }
 });
@@ -202,12 +228,13 @@ app.post('/api/restaurants', async (req, res) => {
  *         description: Restaurant not found
  */
 
-app.put('/api/restaurants/:id', async (req, res) => {
+app.put('/api/restaurants/:id', jwtMiddleware, async (req, res) => {
   try {
     const updated = await Restaurant.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!updated) return res.status(404).json({ error: 'Restaurant not found' });
     res.json({ updated });
   } catch (err) {
+    logger.error('Error in PUT', { message: err.message, stack: err.stack });
     res.status(400).json({ error: 'Update failed', details: err.message });
   }
 });
@@ -232,12 +259,13 @@ app.put('/api/restaurants/:id', async (req, res) => {
  *         description: Restaurant not found
  */
 
-app.delete('/api/restaurants/:id', async (req, res) => {
+app.delete('/api/restaurants/:id', jwtMiddleware, async (req, res) => {
   try {
     const deleted = await Restaurant.findByIdAndDelete(req.params.id);
     if (!deleted) return res.status(404).json({ error: 'Restaurant not found' });
     res.json({ deletedCount: 1 });
   } catch (err) {
+    logger.error('Error in DELETE', { message: err.message, stack: err.stack });
     res.status(400).json({ error: 'Delete failed', details: err.message });
   }
 });
@@ -281,7 +309,7 @@ app.delete('/api/restaurants/:id', async (req, res) => {
  *         description: Server error
  */
 
-app.get('/api/restaurants', async (req, res) => {
+app.get('/api/restaurants', jwtMiddleware, async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
@@ -293,6 +321,7 @@ app.get('/api/restaurants', async (req, res) => {
 
     res.json({ page, limit, totalPages, totalCount, count: items.length, items });
   } catch (err) {
+    logger.error('Error in Get Paginated', { message: err.message, stack: err.stack });
     res.status(500).json({ error: 'Failed to fetch restaurants', details: err.message });
   }
 });
